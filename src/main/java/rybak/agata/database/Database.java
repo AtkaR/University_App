@@ -15,32 +15,22 @@ import org.sqlite.SQLiteConfig;
 import rybak.agata.classes.*;
 
 public class Database implements DatabaseDao {
-    //obiekt przechowujacy jedyna instancje klasy Database
     private static Database database = null;
 
-    //dane do polaczeni z baza danych
-    private static final String DRIVER = "org.sqlite.JDBC"; //nazwa sterownika ktory umozliwi prawidlowe
-    //polaczenie z baza danych sqlite
-    private static final String DATABASE = "jdbc:sqlite:Test.db"; //nazwa bazy danych - to tak naprawde tylko
-    //Test.db ale przedrostek jest konieczny bo tego wymaga sqlite
-    private Connection connection; //zmienna do polaczenia z baza i zarzadzania polaczeniem
-    private Statement statement; //zmienna do zarzadzania niektorymi zapytaniami do bazy,
-    //np uzywana przy zapytaniu CREATE TABLE - bedzie ponizej
+    private static final String DRIVER = "org.sqlite.JDBC";
+    private static final String DATABASE = "jdbc:sqlite:Test.db";
 
-    //prywatny konstruktor - wywolany tylko jeden raz w metodzie getInstance umozliwi nawiazanie polaczenia
-    //z baza danych
+    private Connection connection;
+    private Statement statement;
+
     private Database()
     {
         try {
-            Class.forName(DRIVER); //zaladowanie sterownika do polaczenia z sqlite
-            SQLiteConfig configuration = new SQLiteConfig(); //konfiguracja ktora pozwoli uaktywnic
-            //mechanizm kluczy obcych
+            Class.forName(DRIVER);
+            SQLiteConfig configuration = new SQLiteConfig();
             configuration.enforceForeignKeys(true);
-            connection = DriverManager.getConnection(DATABASE, configuration.toProperties()); //nawiazanie polaczenia z baza,
-            //jezeli nie istniala zostanie utworzona nowa, a jak istaniala to zostanie otworzone
-            //polaczenie z istniejaca - plik bazy danych znajduje sie w katalogu projektu
-            statement = connection.createStatement(); //inicjlazacja obiektu satement ktory wykorzystamy przy
-            //tworzeniu tabel
+            connection = DriverManager.getConnection(DATABASE, configuration.toProperties());
+            statement = connection.createStatement();
             createTable();
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
@@ -53,21 +43,16 @@ public class Database implements DatabaseDao {
 
     public static Database getInstance()
     {
-        if (database == null) //jezeli obiekt byl null, czyli na poczatku, jeden jedyny raz zostanie
-        //zainicjlaizowany konstruktorem bezarguentowy, ktory przy okazji polaczy nas z baza danych
+        if (database == null)
         {
             database = new Database();
         }
-        return database; //za kadym kolejnym wywlaniem metody getInstance kod w if juz nie zajdzie
-        //bo obiekt nie bedzie null i to spowoduje ze zawsze zostanie zwrocona instancja database
-        //utworzona na samym poczatku - singleton
+        return database;
     }
 
-    //metoda tworzy pierwsza tabele w bazie danych
     public void createTable()
     {
         try {
-            //piszesz zwykly sql
             String sqlCreateTableStudent =
                     "CREATE TABLE IF NOT EXISTS Student "
                             + "("
@@ -112,8 +97,6 @@ public class Database implements DatabaseDao {
                             + "password VARCHAR(50) NOT NULL "
                             + ")";
 
-            statement.execute(sqlCreateTableStudent); //statement przyjmuje w metodzie execute string z sql-em
-            //i tworzy na jego podsatawie tabelke w rzeczywistej bazie danych
             statement.execute(sqlCreateTableUniversity);
             statement.execute(sqlCreateTableRegister);
             statement.execute(sqlCreateTableUser);
@@ -137,7 +120,7 @@ public class Database implements DatabaseDao {
             ps.setInt(3, s.getAge());
             ps.setDouble(4,  s.getStudentAverage());
             ps.setString(5, s.getEmail());
-            ps.execute(); //wykonanie sparametryzowanego zapytania
+            ps.execute();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -216,7 +199,7 @@ public class Database implements DatabaseDao {
             ps.setDouble(4,  s.getStudentAverage());
             ps.setString(5, s.getEmail());
             ps.setInt(6, s.getId());
-            ps.execute(); //wykonanie sparametryzowanego zapytania
+            ps.execute();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -342,7 +325,7 @@ public class Database implements DatabaseDao {
             String firstName, lastName, email;
             double average;
             students = new ArrayList<>();
-            while(rs.next()) //dopoki jest nastepny wiersz do pobrania ze zwroconych danych to go pobieramy
+            while(rs.next())
             {
                 id = rs.getInt(1);
                 firstName = rs.getString(2);
@@ -369,7 +352,7 @@ public class Database implements DatabaseDao {
             ResultSet rs = statement.executeQuery(selectIntegerSql);
             int id;
             idList= new ArrayList<>();
-            while(rs.next()) //dopoki jest nastepny wiersz do pobrania ze zwroconych danych to go pobieramy
+            while(rs.next())
             {
                 id = rs.getInt(1);
                 idList.add(id);
@@ -393,7 +376,7 @@ public class Database implements DatabaseDao {
             int id, setYear;
             String name, city, email, address;
             universities = new ArrayList<>();
-            while(rs.next()) //dopoki jest nastepny wiersz do pobrania ze zwroconych danych to go pobieramy
+            while(rs.next())
             {
                 id = rs.getInt(1);
                 name = rs.getString(2);
@@ -420,7 +403,7 @@ public class Database implements DatabaseDao {
             ResultSet rs = statement.executeQuery(selectIntegerSql);
             int id;
             idList= new ArrayList<>();
-            while(rs.next()) //dopoki jest nastepny wiersz do pobrania ze zwroconych danych to go pobieramy
+            while(rs.next())
             {
                 id = rs.getInt(1);
                 idList.add(id);
@@ -443,7 +426,7 @@ public class Database implements DatabaseDao {
 
             int id, studentId, universityId, studentYear;
             register = new ArrayList<>();
-            while(rs.next()) //dopoki jest nastepny wiersz do pobrania ze zwroconych danych to go pobieramy
+            while(rs.next())
             {
                 id = rs.getInt(1);
                 studentId = rs.getInt(2);
@@ -471,7 +454,7 @@ public class Database implements DatabaseDao {
             int id, age;
             String firstName, lastName, email;
             double average;
-            if(rs.next()) //dopoki jest nastepny wiersz do pobrania ze zwroconych danych to go pobieramy
+            if(rs.next())
             {
                 id = rs.getInt(1);
                 firstName = rs.getString(2);
@@ -501,7 +484,7 @@ public class Database implements DatabaseDao {
             int id, setYear;
             String name, city, email, address;
 
-            while(rs.next()) //dopoki jest nastepny wiersz do pobrania ze zwroconych danych to go pobieramy
+            while(rs.next())
             {
                 id = rs.getInt(1);
                 name = rs.getString(2);
@@ -531,7 +514,7 @@ public class Database implements DatabaseDao {
 
             int id, studentId, universityId, studentYear;
 
-            while(rs.next()) //dopoki jest nastepny wiersz do pobrania ze zwroconych danych to go pobieramy
+            while(rs.next())
             {
                 id = rs.getInt(1);
                 studentId = rs.getInt(2);
@@ -563,7 +546,7 @@ public class Database implements DatabaseDao {
             String firstName, lastName, email, name, city, universityEmail, address;
             double studentAverage;
             studentUniversity = new ArrayList<>();
-            while(rs.next()) //dopoki jest nastepny wiersz do pobrania ze zwroconych danych to go pobieramy
+            while(rs.next())
             {
                 id = rs.getInt(1);
                 firstName = rs.getString(2);
@@ -657,7 +640,7 @@ public class Database implements DatabaseDao {
             String firstName, lastName, email, name, city, universityEmail, address;
             double studentAverage;
             studentUniversity = new ArrayList<>();
-            while(rs.next()) //dopoki jest nastepny wiersz do pobrania ze zwroconych danych to go pobieramy
+            while(rs.next())
             {
                 id = rs.getInt(1);
                 firstName = rs.getString(2);

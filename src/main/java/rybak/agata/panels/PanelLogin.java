@@ -161,7 +161,7 @@ public class PanelLogin extends JPanel {
             e.printStackTrace();
         }
 
-        frame.pack(); //dopasowuje rozmiar okienka do jego zawartosci
+        frame.pack();
     }
 
 }

@@ -33,7 +33,6 @@ public class PanelStudent extends JPanel {
 
     private JTextField tfId = new JTextField(5);
 
-    //do przechowywania danych z bazy uzywamy liste
     private List<Student> students;
     private int idx;
 
@@ -42,7 +41,6 @@ public class PanelStudent extends JPanel {
     public PanelStudent(PanelRegister panelRegister) {
         super(new GridBagLayout());
         this.panelRegister = panelRegister;
-        //trzeba utworzyc pomocniczy obiekt GridBagConstraints
         GridBagConstraints gbcMain = new GridBagConstraints();
 
         //-------------------------------------------------------------------------------
@@ -51,10 +49,9 @@ public class PanelStudent extends JPanel {
         JPanel panelNavigation = new JPanel(new GridBagLayout());
         GridBagConstraints gbcPanelNavigation = new GridBagConstraints();
 
-        gbcPanelNavigation.gridx = 0; //kolumna
-        gbcPanelNavigation.gridy = 0; //wiersz
+        gbcPanelNavigation.gridx = 0;
+        gbcPanelNavigation.gridy = 0;
         btnLeft.addActionListener(e -> {
-            //tutaj piszemy co chcemy zrobic kiedy wcisniemy przycisk
             --idx;
             if (idx < 0)
             {
@@ -71,7 +68,6 @@ public class PanelStudent extends JPanel {
         gbcPanelNavigation.gridx = 2;
         gbcPanelNavigation.gridy = 0;
         btnRight.addActionListener(e -> {
-            //tutaj piszemy co chcemy zrobic kiedy wcisniemy przycisk
             ++idx;
             if (idx >= students.size())
             {
@@ -144,14 +140,7 @@ public class PanelStudent extends JPanel {
 
         gbcPanelOperations.gridx = 0;
         gbcPanelOperations.gridy = 0;
-		/*btnInsert.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		})*/
         btnInsert.addActionListener(e -> {generateInsertWindow();});
         panelOperations.add(btnInsert, gbcPanelOperations);
 
@@ -186,7 +175,7 @@ public class PanelStudent extends JPanel {
         //-------------------------------------------------------------------------------
         //--------------------------------PANEL MAIN-------------------------------------
         //-------------------------------------------------------------------------------
-        //trzy panele musze dodac do panelu glownego
+
         gbcMain.gridx = 0;
         gbcMain.gridy = 0;
         add(panelNavigation, gbcMain);
@@ -198,17 +187,6 @@ public class PanelStudent extends JPanel {
         gbcMain.gridx = 0;
         gbcMain.gridy = 2;
         add(panelOperations, gbcMain);
-
-		/*btnLeft.setBackground(new Color(120,34,210));
-		//btnLeft.setBackground(Color.RED);
-		btnLeft.setFont(new Font("ComicSans", Font.BOLD, 16));
-		add(btnLeft);
-
-		lFirstName.setFont(new Font("ComicSans", Font.BOLD, 16));
-		add(lFirstName);
-
-		tfFirstName.setFont(new Font("ComicSans", Font.BOLD, 16));
-		add(tfFirstName);*/
 
         students = Database.getInstance().selectStudent();
         idx = 0;
@@ -314,7 +292,7 @@ public class PanelStudent extends JPanel {
             e.printStackTrace();
         }
 
-        frame.pack(); //dopasowuje rozmiar okienka do jego zawartosci
+        frame.pack();
 
     }
 
@@ -347,7 +325,7 @@ public class PanelStudent extends JPanel {
             e.printStackTrace();
         }
 
-        frame.pack(); //dopasowuje rozmiar okienka do jego zawartosci
+        frame.pack();
 
     }
 

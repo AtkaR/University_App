@@ -9,7 +9,7 @@ import java.util.List;
 public class CustomComboboxModel<T> extends AbstractListModel<T> implements ComboBoxModel<T>{
 
     private List<T> items;
-    private T selectedItem; //bedzie przechowywal aktualnie zaznaczony w combobox element
+    private T selectedItem;
 
     public CustomComboboxModel(List<T> items) {
         this.items = items;

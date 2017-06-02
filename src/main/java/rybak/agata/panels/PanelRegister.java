@@ -82,8 +82,7 @@ public class PanelRegister extends JPanel {
     private JLabel lIdS = new JLabel("STUDENT'S ID");
     private JLabel lIdU = new JLabel("UNIVERSITY'S ID");
     private JLabel lSelectYear = new JLabel("SELECT YEAR");
-    //tutaj robisz same deklaracje bez new, bo dopiero w konstruktorze bedziesz
-    //mogla zainicjalizowac danymi z bazy
+
     private CustomComboboxModel<Integer> modelCIdS;
     private CustomComboboxModel<Integer> modelCIdU;
     private CustomComboboxModel<Integer> modelCSelectYear;
@@ -249,7 +248,6 @@ public class PanelRegister extends JPanel {
         gbcPanelOperations.gridy = 0;
 
         btnDelete.addActionListener(e -> {
-            //usuwamy po id
             if (!tfId.getText().isEmpty())
             {
                 Database.getInstance().deleteRegister(Integer.parseInt(tfId.getText()));
@@ -298,11 +296,8 @@ public class PanelRegister extends JPanel {
 
         gbcPanelFields2.gridx = 1;
         gbcPanelFields2.gridy = 1;
-        //model - inicjalizacja danymi z bazy
         modelCIdS = new CustomComboboxModel<>(Database.getInstance().selectStudentIds());
-        //podpiecie modelu do combo boxa
         cIdS = new JComboBox<>(modelCIdS);
-        //combobox ma action listener ktory wypelnia pola pod combobox
         cIdS.addActionListener(e -> {
             fillStudentPanelDown();
         });
@@ -503,7 +498,6 @@ public class PanelRegister extends JPanel {
         cIdU.updateUI();
     }
 
-    //metody ktora wypelniaja pola
     public void fillStudentPanelDown()
     {
         int id = (int)cIdS.getSelectedItem();

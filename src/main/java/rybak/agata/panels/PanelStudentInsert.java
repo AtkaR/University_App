@@ -122,15 +122,6 @@ public class PanelStudentInsert extends JPanel {
 
 
         btnInsert.addActionListener(e -> {
-            //1. pobierz dane z pol tekstowych bo z nich chcesz dane wstawiac
-
-			/*Poki co masz ze jak wszystkie pola sa puste to komunikat.
-			 * CHce zeby dla kazdego pola osobno byly sprawdzane warunki i osobne okienko
-			 * dla osobnego pola, first name i last name maja byc z duzych liter,
-			 * wiek msi byc liczba z przedziau <18,65>,
-			studenatAverage ma byc z przedzialu <2.0, 5.0>
-			oraz email ma miec format: literki_male@literki_male.pl */
-
             if (
                     tfFirstName.getText().isEmpty() ||
                             tfLastName.getText().isEmpty() ||
@@ -173,7 +164,6 @@ public class PanelStudentInsert extends JPanel {
                 return;
             }
 
-            //tutaj mamy juz wszystko przewalidowane
             Student s = new Student(
                     0,
                     tfFirstName.getText(),
@@ -186,7 +176,6 @@ public class PanelStudentInsert extends JPanel {
             ps.fillFieldsAfterInsert();
             ps.getPanelRegister().updateComboBoxes();
 
-            //po wstawieniu danych zamykamy panel od wstawiania
             JFrame frame = (JFrame)getRootPane().getParent();
             frame.dispose();
 

@@ -22,7 +22,6 @@ public interface DatabaseDao {
     void deleteRegister(int id);
     void deleteUser(int id);
 
-    // SELECTY TEZ?????
 
 	/*List<Student> selectStudent();
 	List<Integer> selectStudentIds();

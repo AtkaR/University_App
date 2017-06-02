@@ -160,7 +160,6 @@ public class PanelStudentUpdate extends JPanel {
             Database.getInstance().updateStudent(ps);
             panelStudent.fillFieldsAfterUpdate();
 
-            //po wstawieniu danych zamykamy panel od wstawiania
             JFrame frame = (JFrame)getRootPane().getParent();
             frame.dispose();
         });

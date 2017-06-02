@@ -22,7 +22,6 @@ public class App
         frame.setVisible(true);
         frame.setLocation(400, 100);
         frame.setResizable(false);
-        //frame.setJMenuBar(panel.createMenu());
 
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -41,14 +40,14 @@ public class App
             e.printStackTrace();
         }
 
-        frame.pack(); //dopasowuje rozmiar okienka do jego zawartosci
+        frame.pack();
 
     }
     public static void main( String[] args )
     {
 
-        Database db = Database.getInstance(); //najpierw utworz jedyna instancje klasy Database czyli db
-        db.createTable(); //nastepnie utworz tabelke
+        Database db = Database.getInstance();
+        db.createTable();
 
 
         /*db.insertStudent(new Student(0, "Stefan", "Pupka", 32, 4.3, "stefan@pupcia.pl"));
@@ -123,7 +122,6 @@ public class App
         db.insertRegistry(new Register(0, 15, 5, 4));
         */
 
-        //id ma znaczenie bo to numer studenta ktorego aktualizujesz
         //db.updateStudent(new Student(1, "Agata", "Rybka", 18, 4.7, "rybka@stawik.pl"));
         //db.updateUniversity(new University(1, "WSI", "Warszawa", 2016, "wsi@balanga.pl", "ul. Balangowa 7, Warszawa"));
         //db.updateRegister(new Register(1,1,1,1));
